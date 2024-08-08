@@ -1,0 +1,1651 @@
+#4.6 Write a program to prompt the user for hours and rate per hour using input to compute gross pay.
+#Pay should be the normal rate for hours up to 40 and time-and-a-half for the hourly rate for
+#all hours worked above 40 hours. Put the logic to do the computation of pay in a function called
+#computepay() and use the function to do the computation. The function should return a value.
+#Use 45 hours and a rate of 10.50 per hour to test the program (the pay should be 498.75).
+#You should use input to read a string and float() to convert the string to a number.
+#Do not worry about error checking the user input unless you want to -
+#you can assume the user types numbers properly. Do not name your variable sum or use the sum() function.
+
+""""
+def computepay(h,r):
+    if h<=40:
+        pay=h*r
+    else:
+        pay=(40*r)+((h-40)*r*1.5)
+    return pay
+
+hrs = input("Enter Hours:")
+hr = float(hrs)
+rate = input("Enter Rate:")
+rt = float(rate)
+
+p=computepay(hr,rt)
+print('Pay',p)
+
+
+
+#Finding the largest so far 
+"""
+
+"""
+largest_so_far= -1
+count=0 #adding count to see how many times the loop ran
+print('Before',largest_so_far)
+for num in [9,41,12,3,74,15]:
+    count=count+1
+    if num > largest_so_far:
+        largest_so_far=num
+    print(largest_so_far,num,count)
+print('After',largest_so_far,'.','With',count,'iterations.')
+
+#to find the average= sum/count
+
+
+n=1
+while n >0:
+    print('lather')
+    print('rinse')
+    print('repeat')
+print('done')
+
+
+
+
+Exercise 1: Write a program which repeatedly reads numbers until the
+user enters “done”. Once “done” is entered, print out the total, count,
+and average of the numbers. If the user enters anything other than a
+number, detect their mistake using try and except and print an error
+message and skip to the next number.
+
+"""
+
+""""
+num=0 #running count
+tot=0.0 #running sum
+while True:
+    sval=input('Enter a number:')
+    if sval=='done':
+        break
+    try:
+        fval=float(sval)
+    except:
+        print('Invalid input')
+        continue
+    #print(fval)
+    num=num+1
+    tot=tot+fval
+#print('All done')
+print(tot,num,tot/num)
+
+#tot/num is average
+
+
+#5.2 Write a program that repeatedly prompts a user for integer numbers until
+#the user enters 'done'. Once 'done' is entered, print out the largest and
+#smallest of the numbers. If the user enters anything other than a valid
+#number catch it with a try/except and put out an appropriate message 
+#and ignore the number. Enter 7, 2, bob, 10, and 4 and match the output 
+#below.
+
+"""
+
+"""
+largest=None #running count
+smallest=None #running sum
+while True:
+    sval=input('Enter a number:')
+    if sval=='done':
+        break
+    try:
+        fval=float(sval)
+    except:
+        print('Invalid input')
+        continue
+    #print(fval)
+    if largest is None:
+        largest=fval
+    if fval>largest:
+        largest=fval
+        lg=int(largest)
+    if smallest is None:
+        smallest=fval
+    if fval<smallest:
+        smallest=fval
+        sm = int(smallest)
+#print('All done')
+print("Maximum is",lg)
+print("Minimum is",sm)
+
+"""
+"""
+fruit= 'banana'
+for x in fruit: #definite loop
+    print(x)
+
+index=0
+while index< len(fruit):
+    letter=fruit[index]
+    print(letter)
+    index=index+1
+
+#the above two codes do the same thing^^
+
+
+"""
+"""
+fruit='banana'
+x=len(fruit)
+print(x)
+
+"""
+"""
+#counting the number of letters:
+
+word='banana'
+count=0
+for letter in word:
+    if letter=='a':
+        count=count+1
+print(count) #pay off in the end
+
+
+6.5 Write code using find() and string slicing (see section 6.10) 
+to extract the number at the end of the line below. Convert the extracted
+value to a floating point number and print it out.
+
+"""
+"""
+
+text = "X-DSPAM-Confidence:    0.8475"
+new=text.find('0')
+end=text.find('5')
+print(float(text[23:]))
+
+"""
+"""
+text = "X-DSPAM-Confidence:    0.8475"
+ipos=text.find(':')
+print(ipos)
+piece=text[ipos+2:]
+print(piece)
+nice=piece.strip() #to get rid of space
+print(nice)
+value=float(piece) #or can use float
+print(value)
+print(value+42)
+
+
+
+7.1 Write a program that prompts for a file name, then opens that file and reads through 
+the file, and print the contents of the file in upper case. Use the file words.txt 
+to produce the output below.
+You can download the sample data at http://www.py4e.com/code3/words.txt
+
+# Use words.txt as the file name
+fname = input("Enter file name: ")
+fh = open(fname)
+for line in fh:
+    line=line.rstrip()
+    print(line.upper())
+
+
+
+game='baseball'
+ugame=game.upper()
+print(ugame)
+
+
+
+7.2 Write a program that prompts for a file name, then opens that file and reads through 
+the file, looking for lines of the form:
+X-DSPAM-Confidence:    0.8475
+Count these lines and extract the floating point values from each of the lines
+and compute the average of those values and produce an output as shown below. 
+Do not use the sum() function or a variable named sum in your solution.
+You can download the sample data at http://www.py4e.com/code3/mbox-short.txt 
+when you are testing below enter mbox-short.txt as the file name.
+
+
+
+# Use the file name mbox-short.txt as the file name
+fname = input("Enter file name: ")
+fh = open(fname)
+count=0
+sum=0
+for line in fh:
+    if not line.startswith("X-DSPAM-Confidence:"):
+        continue
+    line=line.strip()
+    new=line.find(":")
+    #print(new)
+    n=float(line[19:])
+    #print(n)
+    count=count+1 #counting each time it appears
+    sum=sum+n #summing each occurence
+print("Average spam confidence:",sum/count) #overall sum/count= average
+
+
+
+
+
+#splitting a string and putting in a list
+
+abc='my best friend'
+stuff=abc.split()
+print(stuff)
+
+stuff.append('rida')
+print(stuff)
+
+print(len(stuff))
+
+print(stuff[0])
+
+for x in stuff:
+    print(x)
+
+
+thing='rida;spill;guts'
+new=thing.split(';') #now it is splitting based on ; and not space
+print(new)
+
+
+a=[1,2,3]
+b=[4,5,6]
+c=a+b
+print(len(c))
+
+
+
+
+--Open the file romeo.txt and read it line by line. For each line, 
+split the line into a list of words using the split() method. The
+program should build a list of words. For each word on each line 
+check to see if the word is already in the list and if not append 
+it to the list. When the program completes, sort and print the resulting 
+words in python sort() order as shown in the desired output.
+
+
+fname = input("Enter file name: ")
+fh = open(fname) #opening the file
+lst = list() #creating an empty list
+for line in fh: #reading the file line by line
+    line=line.strip() #removing the space from each line
+    words=line.split() #creating the string into a list
+    #print(words)
+    for word in words: #now checking to see if word is in list 
+        if word in lst:
+            continue
+        else:
+            lst.append(word)
+lst.sort()
+print(lst)
+
+
+
+--Open the file mbox-short.txt and read it line by line. When you find a line that starts with
+ 'From ' like the following line:
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+You will parse the From line using split() and print out the second word in the line 
+(i.e. the entire address of the person who sent the message). Then print out a count at the 
+end.Hint: make sure not to include the lines that start with 'From:'. 
+Also look at the last line of the sample output to see how to print the count.
+
+
+fname = input("Enter file name: ")
+fh=open(fname)
+count=0
+for line in fh:
+    if not line.startswith("From:"):
+        continue
+    line=line.rstrip()
+    new=line.split()
+    count=count+1
+    print(new[1])
+print("There were", count, "lines in the file with From as the first word")
+"""
+"""
+#another problem
+
+file=open('short.txt')
+for line in file:
+    line=line.rstrip()
+    word=line.split()
+    print(word)
+    if len(word)<3 or word[0] != 'From' : #debugging statament to avoid no line
+        continue
+    print(word[2])
+
+"""
+"""
+#Dictionaries:
+
+#dictionaries allow you to store key value pairs and are mutable 
+data structures.
+
+#****A list is an ordered collection indexed by position and allowing
+duplicates. Wheres a dictionary is an unordered collection of 
+unique key pairs. 
+
+purse=dict()
+purse['money']=12 #key value pair
+purse['candy']=0
+purse['pocket']=43
+print(purse)
+
+print(purse['candy'])
+
+purse['money']=45
+
+print(purse)
+
+"""
+"""
+counts=dict()
+names=['csev','cwen','csev','zqian','cwen']
+for name in names:
+    if name not in counts:
+        counts[name]=1
+    else:
+        counts[name]=counts[name]+1
+print(counts)
+
+
+#same thing with the get() statemnt:
+
+counts=dict()
+names=['csev','cwen','csev','zqian','cwen']
+for name in names:
+    counts[name]=counts.get(name,0)+1 #so now in this case, if there is a first
+    #time name then it is 1 since 0 is the default, but if it appears again then
+    #it adds 
+print(counts)
+
+
+"""
+"""
+#Counting patterns:
+
+counts=dict()
+print('Enter a line of text:')
+line=input('')
+
+words=line.split() #convert the string into a list of words
+print('Words:',words)
+
+for word in words:
+    counts[word]=counts.get(word,0)+1
+print('Counts:',counts)
+
+
+"""
+"""
+
+counts={'chuck':1,'fred':23,'james':988}
+for key in counts:
+    print(key,counts[key])
+
+
+jjj=counts={'chuck':1,'fred':23,'james':988}
+print(list(jjj)) #will return a list of the keys
+
+
+print(jjj.keys())
+print(jjj.values())
+print(jjj.items()) #return tuples of key value pair
+
+for aaa,bbb in jjj.items():
+    print(aaa,bbb)
+#the above code has two iteration variables that will return
+#the key and value.
+
+
+counts=dict()
+print('Enter a line of text:')
+line=input('')
+
+words=line.split() #convert the string into a list of words
+for word in words:
+    counts[word]=counts.get(word,0)+1
+print('Counts:',counts)
+
+bigcount=None
+bigword=None
+for word,count in counts.items():
+    if bigcount is None or count>bigcount:
+        bigword=word
+        bigcount=count
+print(bigword,bigcount)
+
+
+#to get the biggest word and how many time it appears.
+
+"""
+"""
+stuff=dict()
+print(stuff.get('candy',-1))
+
+
+
+
+#Write a program to read through the mbox-short.txt and figure out who has sent the greatest 
+number of mail messages. The program looks for 'From ' lines and takes the second word of those
+lines as the person who sent the mail. The program creates a Python dictionary that maps the 
+sender's mail address to a count of the number of times they appear in the file. After the
+dictionary is produced, the program reads through the dictionary using a maximum loop to find
+the most prolific committer.
+
+
+
+#open the file 
+#read through each line and create a list 
+look for from lines 
+take the second word from that line 
+
+
+counts=dict()
+fname = input("Enter file name: ")
+fh=open(fname)
+for line in fh:
+    if not line.startswith("From:"):
+        continue
+    line=line.rstrip()
+    new=line.split()
+    words=new
+    #print(words)
+    for word in words:
+        counts[word] = counts.get(word, 0) + 1
+    print('Counts:', counts)
+
+print(counts.items())
+
+
+bigcount = None
+bigword = None
+
+for word,count in counts.items():
+    if word=="From:":
+        continue
+    if bigcount is None or count > bigcount:
+        bigword = word
+        bigcount = count
+print(bigword, bigcount)
+
+#TUPLES- immutable 
+
+
+
+#how to sort by key:
+
+d={'a':10,'b':1,'c':20}
+t=sorted(d.items()) #sorts it according to the keys
+print(t) #give us three tuples
+
+
+for k,v in t:
+    print(k,v)
+
+#how to sort by key:
+
+tmp=list() #this is a temporary list
+for k,v in d.items():
+    tmp.append((v,k))
+    print(tmp) #now the value is first
+
+tmp=sorted(tmp,reverse=True) #this allows it to sort from highest to lowets 
+print(tmp)
+
+
+
+x,y=3,4
+print(y)
+
+d={'a':10,'b':1,'c':20}
+y=d.items()
+print(y)
+
+data=['Mon','Tues','Wed','Thurs']
+data.sort(reverse=True)
+print(data)
+
+
+Write a program to read through the mbox-short.txt and figure out the distribution by 
+hour of the day for each of the messages. You can pull the hour out from the 'From ' 
+line by finding the time and then splitting the string a second time using a colon.
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Once you have accumulated the counts for each hour, print out the counts, sorted by 
+hour as shown below.
+
+
+counts=dict()
+fname=input("Enter file name:")
+file=open(fname)
+for line in file:
+    line = line.rstrip()
+    word = line.split()
+    #print(word)
+    if len(word)<3 or word[0] != 'From' : #debugging statament to avoid no line
+        continue
+    #print(word)
+
+    for w in word:
+        w=word[5]
+        split=w.split(":")
+        sp=split[0]
+    #print(sp) #now we need to put this in a dict
+    if sp not in counts:
+        counts[sp]=1
+    else:
+        counts[sp]=counts[sp]+1
+    #print(counts)
+for k,v in sorted(counts.items()):
+    print(k,v)
+
+
+
+#Write a function that returns the sum of two numbers.
+
+
+
+param1 = 1
+param2 = 2
+
+def solution(param1, param2):
+    return(param1+param2)
+
+print(solution(param1,param2))
+
+
+
+
+
+#Given a year, return the century it is in.
+# The first century spans from the year 1 up to and
+# including the year 100, the second - from the year
+# 101 up to and including the year 200, etc.
+
+#hint was if its 1700 then 17
+#if its 1905 then it is 20
+
+
+print(solution(1907))
+
+
+print(9%3) #remainder 
+
+print(9//3)
+
+
+
+def solution(year):
+    if year<=100:
+        century=1
+    elif year%100==0:
+        century=year//100
+    else:
+        century=year//100+1
+    return float(century)
+
+print(solution(2023))
+
+Given the string, check if it is a palindrome.
+
+
+
+def solution(inputString):
+    inputString = inputString.lower() #lower case it all
+    print(inputString)
+    reversedString = inputString[::-1].lower() #reverse it and lower case
+    print(reversedString)
+    if inputString == reversedString:
+        print('true')
+    else:
+        print('false')
+inputString = "aabaa"
+solution(inputString)
+
+
+
+def solution(inputString):
+    if inputString==inputString[::-1]:
+        print('true')
+    else:
+        print('false')
+
+inputString= "awga"
+solution(inputString)
+
+
+def solution(inputString):
+    return inputString == inputString[::-1]
+
+
+
+Given an array of integers, find the pair of adjacent elements that has the largest product and 
+return that product.
+
+
+
+def solution(inputArray):
+    largestprod=None
+    for i in range(0,len(inputArray)-1):
+        #for j in range(i+1,len(inputArray)):
+            prod=inputArray[i]*inputArray[i+1]
+            #print(prod)
+            if largestprod==None:
+                largestprod=prod
+            if prod>largestprod:
+                largestprod=prod
+    return largestprod
+
+inputArray=[3,6,-2,-5,7,3]
+print(solution(inputArray))
+
+
+cost_per_minute = [0.2,0.35,0.4,0.45]
+cost_per_mile = [1.1,1.8,2.3,3.5]
+
+def solution(ride_time, ride_distance, cost_per_minute, cost_per_mile):
+    fare = []
+    for i in range(0,len(cost_per_minute)):
+            total=(cost_per_minute[i] * ride_time + cost_per_mile[i] * ride_distance)
+            fare.append(total)
+    return fare
+
+print (solution(30,7,cost_per_minute,cost_per_mile))
+
+
+
+
+n,1=1
+n,2=5
+n,3=13
+n,4=25
+
+4,8,12
+13-9
+
+
+def solution(n):
+    if n==0:
+        return 0
+    elif n==1:
+        return 1
+    else:
+        return (n**2)+(n-1)**2
+
+
+print(solution(1))
+
+
+
+
+xs=[()]
+res=[False]*2
+if xs:
+    res[0]=True
+if xs[0]:
+    res[1]= True
+
+
+print(res)
+
+a=-4
+b=15
+
+print( a==(not b))
+
+print(b//a) #double // gets rid of decimal and rounds to whole number 
+
+
+
+def solution(n):
+    return n.bit_length()
+
+
+print(solution(60))
+
+
+
+
+def solution(n):
+    if n==int(n):
+        return n % 2
+    else:
+        return -1
+
+print(solution(7.8))
+
+
+print(6,7)
+
+n = int(input().strip())
+if n % 2==0 and 2 <= n <= 5:
+    print("Not Weird")
+elif n % 2==0 and 6 <= n <= 20:
+    print("Weird")
+elif n % 2==0 and n > 20:
+    print("Not Weird")
+else:
+    print("Weird")
+    
+
+a = int(input().strip())
+b = int(input().strip())
+add=a+b
+diff=a-b
+prod=b*a
+print(add)
+print(diff)
+print(prod)
+
+
+
+n = int(input())
+for i in range(n):
+    print( i**2)
+    
+
+
+n = int(input())
+for i in range(1,n+1):
+    print(i,end='')
+
+def is_leap(year):
+    leap = False
+    #if year % 4 == 0:
+        #leap = True
+    if year%4==0:
+        leap = True
+        if year%100==0:
+            leap = False
+            if year%400==0:
+                leap=True
+    return leap
+
+
+year = int(input())
+print(is_leap(year))
+
+
+
+def minion_game(string):
+    kevin_point=0
+    stuart_point=0
+    for i in string:
+        if i=='A'or i=='E'or i=='I' or i=='O' or i=='U':
+            start=string.find('A')
+            print(start)
+            kevin_point=kevin_point+1
+            #print('kevin_point:',kevin_point)
+        else:
+            stuart_point=stuart_point+1
+            #print('stuart_point:',stuart_point)
+
+            if kevin_point>stuart_point:
+                winner='Kevin'
+                winner_point=kevin_point
+            if stuart_point>kevin_point and not stuart_point==kevin_point:
+                winner='Stuart'
+                winner_point=stuart_point
+
+
+    return winner,winner_point
+
+
+
+string=input()
+print(minion_game(string))
+
+
+"""
+"""
+#anything modulo 10 gives us the unit
+
+print(79//10)
+print(79%10)
+
+def print_full_name(first,last):
+    print("Hello",first,last+"! You just delved into python.")
+
+first=input().strip()
+last=input().strip()
+
+
+print_full_name(first,last)
+
+"""
+"""
+
+from itertools import permutations
+
+x = int(input())
+y = int(input())
+z = int(input())
+n = int(input())
+list = []
+for i in range(x+1):
+    for j in range(y+1):
+        for k in range(z+1):
+            if i+j+k!=n:
+                list.append([i,j,k])
+print(list)
+
+
+ans = [[i, j, k] for i in range(x + 1) for j in range(y + 1) for k in range(z + 1) if i + j + k != n]
+print(ans)
+
+"""
+"""
+
+#READING A TEXT, STARTING DICT AND GETTING THE MOST COMMON WORD:
+
+fname=input("Enter file:")
+if len(fname)<1: fname='romeo.txt'
+hand=open(fname)
+
+di=dict()
+for line in hand:
+    line=line.rstrip()
+    #print(line)
+    wds=line.split()
+    #print(wds)
+    for w in wds:
+        #better way to write all of this:
+
+        #idiom: retrieve/create/update count
+        di[w]=di.get(w,0)+1
+
+
+
+
+        #if the key is not there, the count is 0
+        #oldcount=di.get(w,0)
+        #print(w,'old',oldcount)
+        #newcount=oldcount+1
+        #di[w]=newcount
+        #print(w,'new',newcount)
+
+        #if w in di:
+            #di[w]=di[w]+1 #this is the count
+            #print('**Existing**')
+        #else:
+            #di[w]=1
+            #print('**NEW**')
+        #print(w,di[w]) #will take on all the words of the file
+
+print(di)
+#print(di.items())
+
+#now we want to find most common word:
+
+largest=-1 #we can do this since the counter is always >1
+for k,v in di.items():
+    print(k,v)
+    if v > largest:
+        largest=v
+        theword=k #capture/ remember the word that is largest
+print('Done',theword,largest)
+
+"""
+"""
+#TUPLES AND WILL CREATE A LIST OF most common word and FIND Out
+#how to sort a dictionary by the values instead of the keys:
+
+
+fname=input("Enter file:")
+if len(fname)<1: fname='romeo.txt'
+hand=open(fname)
+
+di=dict()
+for line in hand:
+    line=line.rstrip()
+    #print(line)
+    wds=line.split()
+    #print(wds)
+    for w in wds:
+        #better way to write all of this:
+
+        #idiom: retrieve/create/update count
+        di[w]=di.get(w,0)+1
+
+print(di)
+
+#x=sorted(di.items()) #will sort according to alphabetical order by key
+#print(x)
+#but we want to sort according to value
+
+tmp=list()
+for k,v in di.items():
+    #print(k,v)
+    newt=(v,k) #new tuple/ reversed
+    tmp.append(newt) #append the tuple to a list
+tmp=sorted(tmp,reverse=True) #descending order where the tuple is flipped for sorting as
+#in the form value/key
+#we have a reverse tuple where value first, key second
+for v,k in tmp[:5]: #to get the 5 most common words 
+    print(k,v) #now flipped back to value key
+
+"""
+"""
+
+
+def solution(visits,target):
+    sum=0
+    for i in range(0,len(visits)):
+        sum=sum+visits[i]
+        if sum >= target:
+            return i
+    return -1
+
+
+visits=[200,300,100,200,500]
+target=800
+print(solution(visits,target))
+
+"""
+"""
+
+n = int(input())
+arr = map(int, input().split()) #map function returns an iterator
+l=list(arr) #now we have converted the iterator to a list
+#print(l)
+
+winner=-99999
+runner_up=-99999
+
+for i in l :
+    if i > winner:
+        winner, runner_up=i,winner
+    if i < winner and i> runner_up:
+        runner_up=i
+print(runner_up)
+
+#print(m)
+
+"""
+"""
+
+print("Today is a wonderful day!")
+
+
+"""
+"""
+#USING REGULAR EXPRESSIONS:
+
+
+import re
+
+fname=open('actual.txt')
+
+num=list()
+for line in fname:
+    line=line.rstrip()
+    stuff=re.findall('([0-9]+)',line)
+    if len(stuff)==0: continue
+    for s in stuff:
+        st=int(s)
+        num.append(st)
+        total=sum(num)
+print(total)
+
+
+"""
+"""
+#using sockets in python to extract web data:
+
+import socket
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #like a file handle that has no data
+mysock.connect(('data.pr4e.org', 80)) #makes a connection with port 80 (web server)
+cmd = 'GET http://data.pr4e.org/intro-short.txt HTTP/1.0\r\n\r\n'.encode()
+
+#encode converts from unicode to UTF-8.
+mysock.send(cmd)
+
+while True:
+    data = mysock.recv(512) #reciever upto 512 characters
+    if len(data) < 1: #if the length of data is less than 1, then break out of the loop
+        break
+    print(data.decode(),end='') #decode since we are getting UTF-8 encoded data and we
+    #want it to be unicode which is the internal format that runs in python
+
+mysock.close()
+
+"""
+
+#NOTES on networks and sockets:
+#URL: Universal resource locator
+#URL consists of the protocol-host-document
+#What do we call it when a browser uses the HTTP protocol to load a file or page from a server and display it in the browser?
+#Answer:
+# The Request/Response Cycle
+#HTTP: Hypertext transfer protocol- is a method for encoding and transporting information between a client (such as a web browser) and a web server.
+#HTTP is a set of rules that govern how web browsers and web servers communicate.
+#A web browser is a software application that allows users to view web pages. It interprets the HTML code of a web page and displays it in a graphical 
+#user interface (GUI). Some popular web browsers include Chrome, Firefox, Edge, and Safari.
+
+#A web server: A web server is a computer program that delivers web pages to users. It stores web pages and other files on a hard drive and responds 
+#to requests from web browsers. When a user enters a URL in their web browser, the web server 
+#retrieves the corresponding web page and sends it to the user's browser.
+
+
+#TCP/IP model: Trasmission control protocol/ Internet protocol
+
+#comprises of : 1. Application, 2. Transport, 3. Network, 4. Link
+
+#Application layer protocols is the highest level of the TCP/IP model.
+#Application layer protocol is a set of rules that define how applications
+#communicate with eqch other and over a network:
+
+#Examples include:
+#HTTP- used for web browsing
+#DNS: The domain name system: is used to translate domain name into ip addresses
+#FTP- file transfer protocol is used for transferring files between computers.
+
+
+#A socket is a software structure within a computer network that serves as an endpoint for sending and receiving data
+#across the network. It is a logical entity that represents
+# a connection between two processes running on different computers.
+
+
+####################################################################################################
+
+#Using Python to extract web data:
+#we can use urllib to write a shorter code without using the sockets library
+
+"""
+
+#urllib is a package within python that has several modules for working with URLS
+#urllib.request is a python module for fetching urls 
+#urllib.error is a module in python that represents http error 
+#urllib.parse is a  module in python that focuses on splitting a URL string into its components 
+#or on combing URL componenets into a URL string.
+
+
+
+import urllib.request, urllib.error
+
+fhand=urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+for line in fhand:
+    print(line.decode().strip())
+
+
+#the above doesnt give us the meta data (header)
+
+#urllib makes socket communications and https communications easier
+
+"""
+"""
+####################################################################################################
+
+import urllib.error
+
+fhand=urllib.request.urlopen('http://data.pr4e.org/romeo.txt')
+counts=dict()
+for line in fhand:
+    words=line.decode().split()
+    for word in words:
+        counts[word]=counts.get(word,0)+1
+print(counts) #gives a dictionary of the word frequency
+
+#the above code is treating the  file as a normal text file once it is decoded.
+
+####################################################################################################
+
+"""
+"""
+
+# To run this, download the BeautifulSoup zip file
+# http://www.py4e.com/code3/bs4.zip
+# and unzip it in the same directory as this file
+
+
+
+
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
+import ssl
+
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+url = input('Enter - ')
+html = urllib.request.urlopen(url, context=ctx).read() #returns a utf-8 string which is the response in the form of bytes and containes
+#the html code of the website
+soup = BeautifulSoup(html, 'html.parser') #this parses the html code from the website 
+
+# Retrieve all of the anchor tags
+tags = soup('a') #give us a list of tags
+for tag in tags: #loops through all the tags
+    print(tag.get('href', None)) #pulls out the text of the href attributes
+    
+    
+####################################################################################################
+
+"""
+"""
+
+# To run this, download the BeautifulSoup zip file
+# http://www.py4e.com/code3/bs4.zip
+# and unzip it in the same directory as this file
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import ssl
+import re
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+url = input('Enter - ')
+html = urlopen(url, context=ctx).read()
+soup = BeautifulSoup(html, "html.parser")
+
+# Retrieve all of the anchor tags
+sum=0
+#count=0
+tags = soup('tr')
+for tag in tags:
+    # Look at the parts of a tag
+    print('TAG:', tag)
+
+    stuff = re.findall('[0-9]+', str(tag)) #have to convert the tag to str
+    for s in stuff:
+        sum=sum+int(s)
+        #count=count+1
+#print('Count:',count)
+print('Sum:',sum)
+
+
+####################################################################################################
+"""
+"""
+# To run this, download the BeautifulSoup zip file
+# http://www.py4e.com/code3/bs4.zip
+# and unzip it in the same directory as this file
+
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
+import ssl
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+url = input('Enter URL: ')
+count=input('Enter count:')
+position= input('Enter position:')
+html = urllib.request.urlopen(url, context=ctx).read()
+soup = BeautifulSoup(html, 'html.parser')
+
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+    #print(tag.get('href', None))
+    #stuff = re.findall('by_([a-zA-Z]+)', str(tags))
+    tag=tags[int(position)-1]
+    urnew=tag.get('href',None)
+print(url)
+print(urnew)
+
+
+for i in range(int(count)-1):
+    url=urnew
+    html = urllib.request.urlopen(url, context=ctx).read()
+    soup = BeautifulSoup(html, 'html.parser')
+
+    # Retrieve all of the anchor tags
+    tags = soup('a')
+    for tag in tags:
+        #print(tag.get('href', None))
+        # stuff = re.findall('by_([a-zA-Z]+)', str(tags))
+        tag = tags[int(position) - 1]
+        urnew = tag.get('href', None)
+    print(urnew)
+
+"""
+
+# in WEB scraping: the python program acts as a  web brower and
+#using http it sends a http requests to the web page, where it retrieves the html code of the web page. 
+#using beautiful soup, the html code is parsed and we are able to extract the 
+#data we are looking for. 
+
+
+#HARDWARE: Physical component of a computer system: CPU, memory storafe 
+#Software: Programs and data that run on the hardware, such as: operating systems (windows, macOS,) applicaton (such as MS office)
+
+#Hardware and software work together to make a computer function:
+#Harware provides the physical resources a software needs to run. The software
+#in turn tells the hardware what to do and how to do it. 
+
+
+
+####################################################################################################
+
+
+#Web services are a standard way, for machines to communicate over the internet.
+# They use a common format for data exchange, which makes it possible for machines
+# from different vendors to work together.
+# It has an interface described in a machine-processable format (specifically,
+# Web Service Definition Language, or WSDL/XML SCHEMA.Web services fulfill a specific task or a set of tasks.
+
+#The main difference between a web server and a web service is that a web server delivers web pages to users,
+#while a web service provides access to functionality that can be used by other applications. Web services can be accessed over HTTP, SOAP, or other protocols.
+
+#Web sevrers interact with other browsers when a client sends a request.
+#Web services interacts with other machine applications without any human interaction.
+#The two common formats used when exchanging data across the web is either XML or JSON.
+
+
+#XML (Extensible Markup Language) is a markup language that is used to store and transfer data.
+#It is a text-based language that uses tags to define the structure of the data. XML is often
+#used in serialization, which is the process of converting a data structure or object state
+#into a format that can be stored or transmitted.
+
+#XML serialization is often used to store data in files or to transmit data over a network.
+#It can also be used to exchange data between different applications.
+
+#XML serialization is the process of converting a data structure or object state into an
+#XML document.
+
+
+#USING XML AND XML PARSING:
+"""
+
+import xml.etree.ElementTree as ET
+
+data = '''
+<person>
+  <name>Chuck</name>
+  <phone type="intl">
+    +1 734 303 4456
+  </phone>
+  <email hide="yes" />
+</person>'''
+
+tree = ET.fromstring(data)
+print('Name:', tree.find('name').text)
+print('Phone Number:', tree.find('phone').text)
+print('Phone attr:', tree.find('phone').get('type'))
+print('Attr:', tree.find('email').get('hide'))
+
+
+
+####################################################################################################
+"""
+"""
+
+import xml.etree.ElementTree as ET #built in xml parser
+#for below, usually we would just retrive the data from the web
+input = '''
+<stuff> #outer tag is stuff
+  <users> #users tag which is within the stuff tag
+    <user x="2">
+      <id>001</id>
+      <name>Chuck</name>
+    </user>
+    <user x="7">
+      <id>009</id>
+      <name>Brent</name>
+    </user>
+  </users>
+</stuff>'''
+
+stuff = ET.fromstring(input) #to read the input and give us back a tree object
+lst = stuff.findall('users/user') #find all the user tag which is the child of users
+print('User count:', len(lst))
+
+for item in lst:
+    print('Name', item.find('name').text)
+    print('Id', item.find('id').text)
+    print('Attribute', item.get('x'))
+    
+    
+####################################################################################################
+"""
+"""
+
+import urllib.request, urllib.parse, urllib.error
+import xml.etree.ElementTree as ET
+import ssl
+
+
+#ELement Tree:A built-in Python library used to parse XML data.
+
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+url=input('Enter:')
+print('Retrieving:',url)
+
+sum=0
+count=0
+
+uh = urllib.request.urlopen(url, context=ctx)
+data = uh.read()
+print('Retrieved', len(data), 'characters')
+#print(data.decode())
+
+tree = ET.fromstring(data)
+counts= tree.findall('comments/comment')
+for c in counts:
+    number=c.find('count').text
+    sum=sum+int(number)
+    count=count+1
+print(sum)
+
+####################################################################################################
+"""
+
+#JSON: JAVA SCRIPT OBJECT NOTATION
+#^Another form of a serialization format^
+
+
+#serialization is the process of converting a data structure or object state
+#into a format that can be stored or transmitted.
+
+#When data is being stored and transferred to and fro different web applications,
+#JSON is the most common serialization format that is being used
+#for the storage and transmittance of data.
+
+#JSON represents data as nested lists and dictionaries
+
+#JSON IS A DATA INTERCHANGE FORMAT:
+
+
+
+"""
+import json
+
+#we have three dictionaries and one nested dictionary
+
+data = '''
+{
+  "name" : "Chuck",
+  "phone" : {
+    "type" : "intl",
+    "number" : "+1 734 303 4456"
+   },
+   "email" : {
+     "hide" : "yes"
+   }
+}'''
+
+info = json.loads(data) #LOADS stands for load from string which then parses json and read thrpugh the data
+#info then turns into a python dictionary with key value pairs as seen above
+print('Name:', info["name"])
+print('Hide:', info["email"]["hide"])
+
+####################################################################################################
+"""
+"""
+
+import json
+
+#below we have a list of dictionaries
+data = '''
+[
+  { "id" : "001",
+    "x" : "2",
+    "name" : "Chuck"
+  } ,
+  { "id" : "009",
+    "x" : "7",
+    "name" : "Brent"
+  }
+]'''
+
+info = json.loads(data)
+print('User count:', len(info)) #to see the length of the list
+
+for item in info: #iterate through each dictionary which is in the list
+    print('Name', item['name'])
+    print('Id', item['id'])
+    print('Attribute', item['x'])
+    
+####################################################################################################
+
+"""
+
+#SOA: Service Oriented Approach/Architecture
+
+#SOA is an architecural style that defines how software components can be reused and interacted with.
+#SOA breaks down applications into smaller, independant services that can be easily communicated with and reused.
+#This make it easier to develop, maintain and scale applications.
+
+#SOA is an architectural style that defines how APIs should be designed and implemented
+
+#SOA: When an application is made of components connected across a network, SOA determines how services between those
+#applications can be exposed and consumed.
+
+
+#API: APPLICATION PROGRAMMING INTERFACE
+#API are a set of routines, protocls and tools for building software applications.
+
+#A contract between applications that defines the patterns of interaction between two application components.
+
+
+#APIS allow applications to communicatewith each other and share data.
+
+#SOA is an architectural style that defines how services can be exposed and consumed, while API is a concrete implementation
+#of a service interface. In other words, SOA is the blueprint for how services should be designed and implemented, while API
+# is the actual implementation of that blueprint.
+
+#When an application makes a set of services in its API available over the web, we call these web services.
+
+"""
+import urllib.request, urllib.parse, urllib.error
+import json
+import ssl
+
+
+serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+while True:
+    address = input('Enter location: ')
+    if len(address) < 1: break
+
+    url= serviceurl+ urllib.parse.urlencode({'address': address})
+#concatenate service url and changes the address into the proper syntax for thr url
+
+    print('Retrieving', url)
+    uh = urllib.request.urlopen(url, context=ctx) #open the url
+    data = uh.read().decode() #decode from UTF8 to unicode
+    print('Retrieved', len(data), 'characters')
+
+    try:
+        js = json.loads(data)  #parses the data that we get from google, loads a string  representation of the json that comes from the outside world
+    #js is a dictionary
+    except:
+        #is js is false, we retrive nothing
+        js = None
+
+    if not js or 'status' not in js or js['status'] != 'OK':
+        print('==== Failure To Retrieve ====')
+        print(data)
+        continue
+
+    print(json.dumps(js, indent=4)) # after parsing, takes the dict that includes array (json structure) and print its with an indent of 4.
+
+    lat = js['results'][0]['geometry']['location']['lat']
+    lng = js['results'][0]['geometry']['location']['lng']
+    print('lat', lat, 'lng', lng)
+    location = js['results'][0]['formatted_address']
+    print(location)
+
+####################################################################################################
+
+"""
+"""
+
+
+import urllib.request, urllib.error
+import json
+
+
+
+url=input('Enter:')
+print('Retrieving:',url)
+
+sum=0
+count=0
+
+uh = urllib.request.urlopen(url)
+data = uh.read().decode()
+print('Retrieved', len(data), 'characters')
+#print(data) #either the data can be printed this, or by using jsdon.dumps
+
+
+js = json.loads(data)  #parses the data that we get from google, loads a string  representation of the json that comes from the outside world
+    #js is a dictionary
+print(json.dumps(js, indent=2)) # after parsing, takes the dict that includes array (json structure) and print its with an indent of 4.
+
+for c in js['comments']:
+    number=c['count']
+    sum=sum+int(number)
+    count=count+1
+print(sum)
+print(count)
+
+
+####################################################################################################
+
+Exercise 1: Change either geojson.py or geoxml.py to print out the two-character country code from the retrieved data.
+Add error checking so your program does not traceback if the country code is not there. Once you have it working, search 
+for “Atlantic Ocean” and make sure it can handle locations that are not in any country.
+
+"""
+"""
+
+
+import urllib.request, urllib.parse, urllib.error
+import json
+import ssl
+
+api_key = False
+# If you have a Google Places API key, enter it here
+# api_key = 'AIzaSy___IDByT70'
+# https://developers.google.com/maps/documentation/geocoding/intro
+
+if api_key is False:
+    api_key = 42
+    serviceurl = 'http://py4e-data.dr-chuck.net/json?'
+else :
+    serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+while True:
+    address = input('Enter location: ')
+    if len(address) < 1: break
+
+    parms = dict()
+    parms['address'] = address
+    if api_key is not False: parms['key'] = api_key
+    url = serviceurl + urllib.parse.urlencode(parms)
+
+    print('Retrieving', url)
+    uh = urllib.request.urlopen(url, context=ctx)
+    data = uh.read().decode()
+    print('Retrieved', len(data), 'characters')
+
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+
+    if not js or 'status' not in js or js['status'] != 'OK':
+        print('==== Failure To Retrieve ====')
+        print(data)
+        continue
+
+    print(json.dumps(js, indent=4))
+
+    counter=-1
+
+    location = js['results'][0]['address_components']
+    #print(location)
+    for item in location:
+        counter +=1
+        if js['results'][0]['address_components'][counter]['types']==['country','political']:
+            print(js['results'][0]['address_components'][counter]['short_name'])
+            break
+        else:
+            continue
+    print("No Country Code")
+
+####################################################################################################
+
+"""
+"""
+
+import urllib.request, urllib.parse, urllib.error
+import json
+import ssl
+
+api_key = False
+# If you have a Google Places API key, enter it here
+# api_key = 'AIzaSy___IDByT70'
+# https://developers.google.com/maps/documentation/geocoding/intro
+
+if api_key is False:
+    api_key = 42
+    serviceurl = 'http://py4e-data.dr-chuck.net/json?' #API endpoint that has a statis subset of the Google data
+else :
+    serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+while True:
+    address = input('Enter location: ')
+    if len(address) < 1: break
+
+    parms = dict()
+    parms['address'] = address
+    if api_key is not False: parms['key'] = api_key
+    url = serviceurl + urllib.parse.urlencode(parms)
+
+    print('Retrieving', url)
+    uh = urllib.request.urlopen(url, context=ctx)
+    data = uh.read().decode()
+    print('Retrieved', len(data), 'characters')
+
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+
+    if not js or 'status' not in js or js['status'] != 'OK':
+        print('==== Failure To Retrieve ====')
+        print(data)
+        continue
+
+    #print(json.dumps(js, indent=4))
+
+    place_id = js['results'][0]['place_id']
+    print('Place id',place_id)
+
+
+"""
