@@ -1,0 +1,774 @@
+#3.1 Write a program to prompt the user for hours and rate per hour using input to compute gross pay.
+# Pay the hourly rate for the hours up to 40 and 1.5 times the hourly rate for all hours worked above 40 hours.
+# Use 45 hours and a rate of 10.50 per hour to test the program (the pay should be 498.75).
+# You should use input to read a string and float() to convert the string to a number.
+# Do not worry about error checking the user input - assume the user types numbers properly.
+"""
+"""
+"""
+
+####################################################################################################
+
+"""
+"""
+
+hrs = input("Enter Hours:")
+h = float(hrs)
+rate = input("Enter Rate:")
+r = float(rate)
+
+if h<40:
+   pay=h*r
+   print(pay)
+else:
+    pay=(40*r)+((h-40)*r*1.5)
+    print(pay)
+####################################################################################################
+
+"""
+"""
+
+
+def solution(arr):
+
+    n = len(arr)
+
+    for i in range(n):
+        j = 0
+        stop = n - i
+        while j < stop - 1:
+            if arr[j]>arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+
+array=[2,4,1,5]
+print(solution(array))
+
+####################################################################################################
+
+"""
+"""
+#OBJECT ORIENTED PROGRAMMING:
+
+
+#Class- template- Contains attributes and methods
+#Method or Message- A defined capability of the class
+#Field or attribute-  A bit of data in the class
+#Object or instance- A particular instance of the class - what we construct from the template
+
+
+#objects are like smaller programs that we are sending stuff into.
+class PartyAnimal: #the class is the template for making partyanimal objects
+    x=0 #within the class partyanimal we have a variable where x=0.
+    #this is an attribute of all partyanimals that will all have a variable
+    #names x in them.
+
+    def __int__(self):
+        print('I have been constructed.')
+    def party(self):  #this function is method which has a bit of code
+        self.x=self.x+1
+        print('So far',self.x)
+
+    def __del__(self):
+        print('I have been destructed', self.x)
+
+an=PartyAnimal()  #an is variable which is being made into a party animal object
+#similar to x=list()
+#above is the moment of construction of the class
+
+#an is the Party Animal object using a PartyAnimal template
+
+an.party() #tell the object to run the party() code with it.
+#dot is the operatore, and party() is the method
+#above is the invoking of the methods within the  object
+
+#the type and dir() tells us what class the object belongs to
+#the dir() command lists its capabilities/ what methods available are
+
+an.party()
+an.party()
+
+an='hey guys'
+print(an)
+
+print(type(an))
+print(dir(an))  #what functions live inside the class PartyAnimal
+
+
+
+#IN OOP- Constructor in a class is a special block of statements called when an
+#object is created
+
+#MANY INSTANCES:
+
+#We can create lots of objects using the class template.
+#each distinct object can be stored into its own variable
+#this is called have multiplw instances of the same class.
+
+#eg:
+#s.party()
+#j.party()
+
+
+
+
+
+#INHERITANCE:
+
+#ability to make a new class
+
+#we have one template that is a parent template and then second child one that can add capabilities or
+#extend the capabilites of the parent template
+
+#we can also subclasses eg: parent- animal
+#child-dog
+
+#Inheritance is a form of storing and reusing a functionality so
+#you do need to repeat yourself.
+
+
+#functionality refers to the features and capabilities that a software application provides.
+
+####################################################################################################
+#USING SQL BABY:::
+"""
+"""
+
+
+
+
+import sqlite3
+import re
+
+conn = sqlite3.connect('emaildb1.sqlite') #make a connection
+cur = conn.cursor() #acts like a handle.
+
+cur.execute('DROP TABLE IF EXISTS Counts')
+
+cur.execute('''
+CREATE TABLE Counts (org TEXT, count INTEGER)''')
+
+fname = input('Enter file name: ')
+if (len(fname) < 1): fname = 'mbox.txt'
+fh = open(fname)
+for line in fh:
+    if not line.startswith('From: '): continue #ensures we only get From lines
+    pieces = line.split() #split the lines in a list
+    org= pieces[1]
+    print(org)
+    stuff=re.findall('@([a-z.]+)',org)
+
+    for s in stuff:
+        org=s
+        #print(org)
+
+    cur.execute('SELECT count FROM Counts WHERE org = ? ', (org,)) #the ? is a placeholder to prevent an SQL injection which will be
+    # replace by (email,) which is a tuple with one thing in it
+    #cur.execute is not retrieving the data, its making sure that the syntax is correct
+    row = cur.fetchone()
+    if row is None:
+        cur.execute('''INSERT INTO Counts (org, count)
+                VALUES (?, 1)''', (org,)) #this is like the get statment for dic
+    else:
+        cur.execute('UPDATE Counts SET count = count + 1 WHERE org = ?',
+                    (org,))
+    conn.commit() #forces everything to be saved to disk
+
+# https://www.sqlite.org/lang_select.html
+sqlstr = 'SELECT org, count FROM Counts ORDER BY count DESC LIMIT 10'
+
+#add=0
+for row in cur.execute(sqlstr):
+    print(str(row[0]), row[1])
+    #add=add+int(row[1])
+    #print(add)
+
+
+cur.close()
+
+
+####################################################################################################
+"""
+#USING SQL BABY:
+"""
+
+#RELATIONAL DATABASES:
+
+
+
+import xml.etree.ElementTree as ET
+import sqlite3
+
+conn = sqlite3.connect('trackdb.sqlite') #make database connection
+cur = conn.cursor() #database handle like a file handle
+
+# Make some fresh tables using executescript()
+cur.executescript('''
+DROP TABLE IF EXISTS Artist;
+DROP TABLE IF EXISTS Genre;
+DROP TABLE IF EXISTS Album;
+DROP TABLE IF EXISTS Track;
+
+CREATE TABLE Artist (
+    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    name    TEXT UNIQUE
+);
+
+CREATE TABLE Genre (
+    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    name    TEXT UNIQUE
+);
+
+CREATE TABLE Album (
+    id  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    artist_id  INTEGER,
+    title   TEXT UNIQUE
+);
+
+CREATE TABLE Track (
+    id  INTEGER NOT NULL PRIMARY KEY 
+        AUTOINCREMENT UNIQUE,
+    title TEXT  UNIQUE,
+    album_id  INTEGER,
+    genre_id  INTEGER,
+    len INTEGER, rating INTEGER, count INTEGER
+);
+''')
+
+
+fname = input('Enter file name: ')
+if ( len(fname) < 1 ) : fname = 'Library.xml'
+
+# <key>Track ID</key><integer>369</integer>
+# <key>Name</key><string>Another One Bites The Dust</string>
+# <key>Artist</key><string>Queen</string>
+def lookup(d, key):
+    found = False
+    for child in d:
+        if found : return child.text
+        if child.tag == 'key' and child.text == key :
+            found = True
+    return None
+
+stuff = ET.parse(fname) #parse the XML
+all = stuff.findall('dict/dict/dict')
+print('Dict count:', len(all))
+for entry in all:
+    if ( lookup(entry, 'Track ID') is None ) : continue
+
+    name = lookup(entry, 'Name')
+    artist = lookup(entry, 'Artist')
+    genre = lookup(entry, 'Genre')
+    album = lookup(entry, 'Album')
+    count = lookup(entry, 'Play Count')
+    rating = lookup(entry, 'Rating')
+    length = lookup(entry, 'Total Time')
+
+    if name is None or artist is None or genre is None or album is None :
+        continue
+
+    print(name, artist, genre, album, count, rating, length)
+
+    cur.execute('''INSERT OR IGNORE INTO Artist (name) 
+        VALUES ( ? )''', ( artist, ) ) #insert the artist name or ignore if the artist name is there
+    cur.execute('SELECT id FROM Artist WHERE name = ? ', (artist, )) #get the artist_id
+    artist_id = cur.fetchone()[0] #this will give us the artist_id which is the id from the artist table
+
+    cur.execute('''INSERT OR IGNORE INTO Genre (name) 
+            VALUES ( ? )''', (genre,))
+    cur.execute('SELECT id FROM Genre WHERE name = ? ', (genre,))
+    genre_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR IGNORE INTO Album (title, artist_id) 
+        VALUES ( ?, ? )''', ( album, artist_id ) ) #ignore says dont blow up, just do nothing
+    cur.execute('SELECT id FROM Album WHERE title = ? ', (album, ))
+    album_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR REPLACE INTO Track
+        (title, album_id, genre_id, len, rating, count) 
+        VALUES ( ?, ?, ?, ?, ?, ? )''',
+        ( name, album_id, genre_id, length, rating, count ) )
+
+    conn.commit()
+
+
+####################################################################################################
+"""
+"""
+def fizzBuzz(n):
+    for i in range(1,n+1):
+        if i%3==0 and not i%5==0:
+            print ("Fizz")
+        elif i%5==0 and not i%3==0:
+            print ("Buzz")
+        elif i%3==0 and i%5==0:
+            print("FizzBuzz")
+        else:
+            print(i)
+
+if __name__ == '__main__':
+    n = int(input().strip())
+
+    fizzBuzz(n)
+
+####################################################################################################
+
+class VendingMachine():
+    def __init__(self, var1, var2):
+        self.var1 = var1
+        self.var2 = var2
+
+    def buy(self, x, y):
+        if (self.var1 >= x and x * self.var2 <= y):
+            self.var1 -= x
+            return y - (x * self.var2)
+        else:
+            if (self.var1 < x):
+                return "Not enough items in the machine"
+            else:
+                return "Not enough coins"
+
+
+
+
+
+####################################################################################################
+"""
+"""
+
+import json
+import sqlite3
+
+conn = sqlite3.connect('rosterdb.sqlite') #make connection to dbms
+cur = conn.cursor() #send sql commands to the cursor and read the cursor to get data back
+
+# Do some setup
+#unique means you can pnly insert string once
+cur.executescript('''
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Member;
+DROP TABLE IF EXISTS Course;
+
+CREATE TABLE User (
+    id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    name   TEXT UNIQUE
+);
+
+
+
+CREATE TABLE Course (
+    id     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    title  TEXT UNIQUE
+);
+
+CREATE TABLE Member (
+    user_id     INTEGER,
+    course_id   INTEGER,
+    role        INTEGER,
+    PRIMARY KEY (user_id, course_id)
+)
+''')
+
+
+fname = input('Enter file name: ')
+if len(fname) < 1:
+    fname = 'roster_data.json'
+
+# [
+#   [ "Charley", "si110", 1 ],
+#   [ "Mea", "si110", 0 ],
+
+str_data = open(fname).read()
+json_data = json.loads(str_data) #parsing the json
+
+for entry in json_data:
+
+    name = entry[0]
+    title = entry[1]
+    role=entry[2]
+
+    print((name, title, role))
+
+#if the insert calls an error, ignore the insert so it doesnt blow up
+    cur.execute('''INSERT OR IGNORE INTO User (name)
+        VALUES ( ? )''', ( name, ) )
+    cur.execute('SELECT id FROM User WHERE name = ? ', (name, ))
+    user_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR IGNORE INTO Course (title)
+        VALUES ( ? )''', ( title, ) )
+    cur.execute('SELECT id FROM Course WHERE title = ? ', (title, ))
+    course_id = cur.fetchone()[0]
+
+    cur.execute('''INSERT OR REPLACE INTO Member
+        (user_id, course_id, role) VALUES ( ?, ?,? )''',
+        ( user_id, course_id, role) )
+
+
+
+#the replace allows for update
+    conn.commit()
+
+####################################################################################################
+this code is talking to the twitter API and the database.
+
+
+"""
+"""
+
+from urllib.request import urlopen
+import urllib.error
+import twurl
+import json
+import sqlite3
+import ssl
+
+TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+
+conn = sqlite3.connect('spider.sqlite')
+cur = conn.cursor()
+
+cur.execute('''
+            CREATE TABLE IF NOT EXISTS Twitter
+            (name TEXT, retrieved INTEGER, friends INTEGER)''')
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+while True:
+    acct = input('Enter a Twitter account, or quit: ')
+    if (acct == 'quit'): break
+    if (len(acct) < 1):
+        cur.execute('SELECT name FROM Twitter WHERE retrieved = 0 LIMIT 1')
+        try:
+            acct = cur.fetchone()[0] #means first column of the first row from database which contains names 
+        except:
+            print('No unretrieved Twitter accounts found')
+            continue
+
+    url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '20'})
+    print('Retrieving', url)
+    connection = urlopen(url, context=ctx)
+    data = connection.read().decode()
+    headers = dict(connection.getheaders())
+
+    print('Remaining', headers['x-rate-limit-remaining'])
+    js = json.loads(data)
+    # Debugging
+    # print json.dumps(js, indent=4)
+
+    cur.execute('UPDATE Twitter SET retrieved=1 WHERE name = ?', (acct, ))
+
+    countnew = 0
+    countold = 0
+    for u in js['users']:
+        friend = u['screen_name']
+        print(friend)
+        cur.execute('SELECT friends FROM Twitter WHERE name = ? LIMIT 1',
+                    (friend, ))
+        try:
+            count = cur.fetchone()[0]
+            cur.execute('UPDATE Twitter SET friends = ? WHERE name = ?',
+                        (count+1, friend))
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT INTO Twitter (name, retrieved, friends)
+                        VALUES (?, 0, 1)''', (friend, ))
+            countnew = countnew + 1
+    print('New accounts=', countnew, ' revisited=', countold)
+    conn.commit()
+
+cur.close()
+
+
+####################################################################################################
+restartable spider across twitter 
+"""
+"""
+
+
+import urllib.request, urllib.parse, urllib.error
+import twurl
+import json
+import sqlite3
+import ssl
+
+TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
+
+conn = sqlite3.connect('friends.sqlite')
+cur = conn.cursor()
+
+cur.execute('''CREATE TABLE IF NOT EXISTS People
+    (id INTEGER PRIMARY KEY, name TEXT UNIQUE, retrieved INTEGER)''')
+#saying that i want this to be a restartable process
+
+cur.execute('''CREATE TABLE IF NOT EXISTS Follows
+    (from_id INTEGER, to_id INTEGER, UNIQUE(from_id, to_id))''')
+
+#uniqueness contraint for many to many relationship, the combination of the from_id and to_id must be unique,
+#no duplicates of the combination
+
+
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+while True:
+    acct = input('Enter a Twitter account, or quit: ')
+    if (acct == 'quit'): break
+    if (len(acct) < 1):
+        cur.execute(
+           'SELECT id, name FROM People WHERE retrieved=0 LIMIT 1'
+        )
+        try:
+            (id, acct) = cur.fetchone() #gives a two tuple
+        except:
+            print('No unretrieved Twitter accounts found')
+            continue
+            #given our rate limit we want to know which accoints we have retrieved
+    else:
+        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
+                    (acct, )) #see if acct is there
+        try:
+            id = cur.fetchone()[0]
+        except:
+            cur.execute('''INSERT OR IGNORE INTO People
+                        (name, retrieved) VALUES (?, 0)''', (acct, ))
+            conn.commit()
+            if cur.rowcount != 1:
+                print('Error inserting account:', acct)
+                continue
+            id = cur.lastrowid
+
+    url = twurl.augment(TWITTER_URL,
+        {'screen_name': acct, 'count': '100'})
+    print('Retrieving account', acct)
+    try:
+        connection = urllib.request.urlopen(url, context=ctx)
+    except Exception as err:
+        print('Failed to Retrieve', err)
+        break
+
+    data = connection.read().decode()
+    headers = dict(connection.getheaders())
+
+    print('Remaining', headers['x-rate-limit-remaining'])
+
+    try:
+        js = json.loads(data)
+    except:
+        print('Unable to parse json')
+        print(data)
+        break
+
+    #above code will fail if we dont have a syntactically good json
+
+    # Debugging
+    # print(json.dumps(js, indent=4))
+
+    if 'users' not in js:
+        print('Incorrect JSON received')
+        print(json.dumps(js, indent=4))
+        continue
+
+    #this code will fail if there is good json but not a users key in it
+
+    cur.execute('UPDATE People SET retrieved=1 WHERE name = ?', (acct, ))
+    #update and gives us the retrieved account
+
+    #now we will loop through the friends of the retrieved account and print it out and
+    #check to see if the
+    countnew = 0
+    countold = 0
+    for u in js['users']:
+        friend = u['screen_name']
+        print(friend)
+        cur.execute('SELECT id FROM People WHERE name = ? LIMIT 1',
+                    (friend, ))
+        #check to see if the friend we got is in the database
+        try:
+            friend_id = cur.fetchone()[0] #if friend is there in dbms, this will work
+            countold = countold + 1
+        except:
+            cur.execute('''INSERT OR IGNORE INTO People (name, retrieved)
+                        VALUES (?, 0)''', (friend, ))
+            conn.commit()
+            if cur.rowcount != 1:
+                print('Error inserting account:', friend)
+                continue
+            friend_id = cur.lastrowid #primary key of the row we just inserted
+
+            countnew = countnew + 1
+        cur.execute('''INSERT OR IGNORE INTO Follows (from_id, to_id)
+                    VALUES (?, ?)''', (id, friend_id))
+    print('New accounts=', countnew, ' revisited=', countold)
+    print('Remaining', headers['x-rate-limit-remaining'])
+    conn.commit()
+cur.close()
+
+
+####################################################################################################
+GEODATA- LOADING THE DBMS
+"""
+"""
+
+
+import urllib.request, urllib.parse, urllib.error
+import http
+import sqlite3
+import json
+import time
+import ssl
+import sys
+
+api_key = False
+# If you have a Google Places API key, enter it here
+# api_key = 'AIzaSy___IDByT70'
+
+if api_key is False:
+    api_key = 42
+    serviceurl = "http://py4e-data.dr-chuck.net/json?"
+else :
+    serviceurl = "https://maps.googleapis.com/maps/api/geocode/json?"
+
+# Additional detail for urllib
+# http.client.HTTPConnection.debuglevel = 1
+
+conn = sqlite3.connect('geodata.sqlite')
+cur = conn.cursor()
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS Locations (address TEXT, geodata TEXT)''')
+
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+fh = open("where.data")
+count = 0
+for line in fh:
+    if count > 200 :
+        print('Retrieved 200 locations, restart to retrieve more')
+        break
+
+    #pull out the address from the file
+    address = line.strip() #removes white space
+    print('')
+    cur.execute("SELECT geodata FROM Locations WHERE address= ?",
+        (memoryview(address.encode()), ))
+
+    #select from the geodata where the address is the address
+    #then pull out the address
+
+    try:
+        #if already in the database, we dont want to pull it out
+        data = cur.fetchone()[0] #this is the geodata which is the json
+        print("Found in database ",address)
+        continue
+    except:
+        pass #dont blow up
+
+    parms = dict() #make a dictionary for the key value pairs
+    parms["address"] = address
+    if api_key is not False: parms['key'] = api_key
+    url = serviceurl + urllib.parse.urlencode(parms)
+
+    print('Retrieving', url)
+    uh = urllib.request.urlopen(url, context=ctx)
+    data = uh.read().decode()
+    print('Retrieved', len(data), 'characters', data[:20].replace('\n', ' '))
+    count = count + 1
+
+    try:
+        js = json.loads(data) #parse the json data
+    except:
+        print(data)  # We print in case unicode causes an error
+        continue
+
+    if 'status' not in js or (js['status'] != 'OK' and js['status'] != 'ZERO_RESULTS') :
+        print('==== Failure To Retrieve ====')
+        print(data)
+        break
+
+    cur.execute('''INSERT INTO Locations (address, geodata)
+            VALUES ( ?, ? )''', (memoryview(address.encode()), memoryview(data.encode()) ) )
+    #insert the new data into the dbms 
+    conn.commit()
+    if count % 10 == 0 : #after every tenth one we will pause for 5 seconds 
+        print('Pausing for a bit...')
+        time.sleep(5)
+
+print("Run geodump.py to read the data from the database so you can vizualize it on a map.")
+
+
+
+####################################################################################################
+GEODATA- VISULIZATON
+"""
+"""
+
+import sqlite3
+import json
+import codecs
+
+conn = sqlite3.connect('geodata.sqlite')
+cur = conn.cursor()
+
+cur.execute('SELECT * FROM Locations')
+fhand = codecs.open('where.js', 'w', "utf-8") #open the javasrcipt file with utf-8
+fhand.write("myData = [\n")
+count = 0
+for row in cur :
+    data = str(row[1].decode()) #the geodata
+    try: js = json.loads(str(data)) #parse it
+    except: continue
+
+    if not('status' in js and js['status'] == 'OK') : continue
+
+    lat = js["results"][0]["geometry"]["location"]["lat"]
+    lng = js["results"][0]["geometry"]["location"]["lng"]
+    if lat == 0 or lng == 0 : continue
+    where = js['results'][0]['formatted_address']
+    where = where.replace("'", "")
+    try :
+        print(where, lat, lng)
+
+        count = count + 1
+        if count > 1 : fhand.write(",\n")
+        output = "["+str(lat)+","+str(lng)+", '"+where+"']"
+        fhand.write(output) #write to the .js file
+    except:
+        continue
+
+fhand.write("\n];\n")
+cur.close()
+fhand.close()
+print(count, "records written to where.js")
+print("Open where.html to view the data in a browser")
+
+
+####################################################################################################
+"""
+"""
+
+numberOfPorts = 4
+transmissionTime = 2
+packetIds = [0,2,6]
+def sentTimes(numberOfPorts, transmissionTime, packetIds):
+    destination_port=[]
+    for i in range(0,len(packetIds)):
+        d=int(packetIds[i]%numberOfPorts)
+        destination_port.append(d)
+        return=destination_port
+        if packetid[i]
+
+
+print(sentTimes(numberOfPorts,transmissionTime,packetIds))
+
+####################################################################################################
+"""
